@@ -2,7 +2,7 @@
   "recommendations": [
     "dbaeumer.vscode-eslint",
     "ms-edgedevtools.vscode-edge-devtools",
-    "prettier.prettier-vscode",
+    "esbenp.prettier-vscode",
     "Vue.volar",
     "WebNative.webnative",
   ],
