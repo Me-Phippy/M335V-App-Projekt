@@ -16,7 +16,7 @@
         <h1 class="beauty-title">Willkommen bei Fischli's Memory von Jeffrey Goldfischli</h1>
         <p class="subtitle">Wähle deinen Spielmodus</p>
 
-        <ion-button expand="full" size="large"  class="mode-button">
+        <ion-button expand="full" size="large" class="mode-button" router-link="/game">
           1P - Einzelspieler
         </ion-button>
 
