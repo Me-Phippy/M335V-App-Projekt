@@ -2,17 +2,17 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
-        <ion-title>Play </ion-title>
+        <ion-title>Settings </ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
       <ion-header collapse="condense">
         <ion-toolbar>
-          <ion-title size="large">Play </ion-title>
+          <ion-title size="large">Settings </ion-title>
         </ion-toolbar>
       </ion-header>
 
-      <ExploreContainer name="Play page" />
+      <ExploreContainer name="Settings page" />
     </ion-content>
   </ion-page>
 </template>
