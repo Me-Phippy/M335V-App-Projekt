@@ -1,0 +1,14 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "ms-edgedevtools.vscode-edge-devtools",
+    "prettier.prettier-vscode",
+    "Vue.volar",
+    "WebNative.webnative",
+  ],
+  "unwantedRecommendations": [
+    "GitHub.copilot",
+    "GitHub.copilot-chat",
+    "GitHub.vscode-github-actions",
+  ]
+}

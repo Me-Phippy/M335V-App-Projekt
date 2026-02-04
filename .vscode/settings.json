@@ -1,0 +1,16 @@
+{
+  "[markdown]": {
+    "editor.wordWrap": "off"
+  },
+  "editor.defaultFormatter": "prettier.prettier-vscode",
+  "explorer.compactFolders": false,
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    ".gitattributes": ".git*, LICENSE",
+    "tsconfig.json": "tsconfig.*.json",
+    "package.json": "package-lock.json",
+  },
+  "extensions.ignoreRecommendations": false,
+  "terminal.integrated.defaultProfile.windows": "Command Prompt",
+  "workbench.startupEditor": "readme",
+}
