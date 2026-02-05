@@ -45,15 +45,46 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonIcon } from '@ionic/vue'
+import { onMounted, watch, ref } from 'vue'
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonIcon, alertController } from '@ionic/vue'
 import { trophyOutline, timeOutline } from 'ionicons/icons'
 import { useGameService } from '@/composables/gameService'
 
-const { cards, matchedPairs, elapsedTime, totalPairs, initializeGame, flipCard } = useGameService()
+const { cards, matchedPairs, elapsedTime, totalPairs, isGameWon, initializeGame, flipCard, resetGame } = useGameService()
+const playerName = ref('')
 
 onMounted(() => {
   initializeGame(16) // 4x4 grid
+})
+
+watch(isGameWon, async (won) => {
+  if (won) {
+    const alert = await alertController.create({
+      header: 'Gewonnen!',
+      message: `Glückwunsch! Du hast alle Paare in ${elapsedTime.value} Sekunden gefunden.`,
+      inputs: [
+        {
+          name: 'name',
+          type: 'text',
+          placeholder: 'Dein Name',
+          value: playerName.value
+        }
+      ],
+      buttons: [
+        {
+          text: 'Neues Spiel',
+          handler: (data) => {
+            if (data.name) {
+              playerName.value = data.name
+              // TODO: Save to history
+            }
+            resetGame()
+          }
+        }
+      ]
+    })
+    await alert.present()
+  }
 })
 </script>
 
