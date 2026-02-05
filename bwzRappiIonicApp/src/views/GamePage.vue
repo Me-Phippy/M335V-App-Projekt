@@ -49,8 +49,10 @@ import { onMounted, watch, ref } from 'vue'
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonIcon, alertController } from '@ionic/vue'
 import { trophyOutline, timeOutline } from 'ionicons/icons'
 import { useGameService } from '@/composables/gameService'
+import { useHistoryService } from '@/composables/historyService'
 
 const { cards, matchedPairs, elapsedTime, totalPairs, isGameWon, initializeGame, flipCard, resetGame } = useGameService()
+const { addEntry } = useHistoryService()
 const playerName = ref('')
 
 onMounted(() => {
@@ -73,10 +75,10 @@ watch(isGameWon, async (won) => {
       buttons: [
         {
           text: 'Neues Spiel',
-          handler: (data) => {
+          handler: async (data) => {
             if (data.name) {
               playerName.value = data.name
-              // TODO: Save to history
+              await addEntry(data.name, elapsedTime.value)
             }
             resetGame()
           }
