@@ -15,10 +15,26 @@ export function useGameService() {
   const endTime = ref<Date | null>(null)
   const isGameStarted = ref(false)
   const isProcessing = ref(false)
+  const currentTime = ref<Date>(new Date())
+  let timerInterval: ReturnType<typeof setInterval> | null = null
+
+  const startTimer = () => {
+    if (timerInterval) return
+    timerInterval = setInterval(() => {
+      currentTime.value = new Date()
+    }, 100)
+  }
+
+  const stopTimer = () => {
+    if (timerInterval) {
+      clearInterval(timerInterval)
+      timerInterval = null
+    }
+  }
 
   const elapsedTime = computed(() => {
     if (!startTime.value) return 0
-    const end = endTime.value || new Date()
+    const end = endTime.value || currentTime.value
     return Math.floor((end.getTime() - startTime.value.getTime()) / 1000)
   })
 
@@ -27,11 +43,13 @@ export function useGameService() {
   const isGameWon = computed(() => matchedPairs.value === totalPairs.value && totalPairs.value > 0)
 
   const initializeGame = (gridSize: number = 16) => {
+    stopTimer()
+
     // Use image paths from images folder (card-0.png to card-17.png)
     const symbols = Array.from({ length: 18 }, (_, i) => `card-${i}.png`)
     const pairCount = gridSize / 2
     const selectedSymbols = symbols.slice(0, pairCount)
-    
+
     // Create pairs
     const cardPairs: Card[] = []
     selectedSymbols.forEach((symbol, index) => {
@@ -59,7 +77,9 @@ export function useGameService() {
     // Start timer on first card flip
     if (!isGameStarted.value) {
       startTime.value = new Date()
+      currentTime.value = new Date()
       isGameStarted.value = true
+      startTimer()
     }
 
     // Flip the card
@@ -87,6 +107,7 @@ export function useGameService() {
       // Check for win
       if (matchedPairs.value === totalPairs.value) {
         endTime.value = new Date()
+        stopTimer()
       }
     } else {
       // No match - wait and flip back
@@ -102,6 +123,10 @@ export function useGameService() {
     initializeGame(cards.value.length)
   }
 
+  const cleanup = () => {
+    stopTimer()
+  }
+
   return {
     cards,
     matchedPairs,
@@ -110,6 +135,7 @@ export function useGameService() {
     totalPairs,
     initializeGame,
     flipCard,
-    resetGame
+    resetGame,
+    cleanup
   }
 }

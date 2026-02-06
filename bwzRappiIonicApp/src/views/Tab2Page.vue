@@ -31,16 +31,19 @@
             <ion-label>
               <div class="entry-header">
                 <h2>
-                  <ion-icon 
-                    v-if="index === 0" 
-                    :icon="trophyOutline" 
+                  <ion-icon
+                    v-if="index === 0"
+                    :icon="trophyOutline"
                     class="trophy-icon"
                   ></ion-icon>
                   {{ entry.playerName }}
                 </h2>
                 <p class="time">{{ entry.time }}s</p>
               </div>
-              <p class="date">{{ formatDate(entry.date) }}</p>
+              <p class="date">
+                {{ formatDate(entry.date) }}
+                <span v-if="entry.cardCount" class="card-count">| {{ entry.cardCount }} Karten</span>
+              </p>
             </ion-label>
           </ion-item>
         </ion-list>
@@ -151,6 +154,10 @@ const handleClearHistory = async () => {
   font-size: 0.9rem;
   color: var(--ion-color-medium);
   margin-top: 4px;
+}
+
+.card-count {
+  margin-left: 4px;
 }
 
 .empty-state {

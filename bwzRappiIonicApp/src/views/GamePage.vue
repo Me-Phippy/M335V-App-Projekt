@@ -15,16 +15,16 @@
             <ion-icon :icon="trophyOutline"></ion-icon>
             <span>Paare: {{ matchedPairs }} / {{ totalPairs }}</span>
           </div>
-          <div class="info-item">
+          <div v-if="showTimer" class="info-item">
             <ion-icon :icon="timeOutline"></ion-icon>
             <span>Zeit: {{ elapsedTime }}s</span>
           </div>
         </div>
 
-        <div class="card-grid">
-          <div 
-            v-for="card in cards" 
-            :key="card.id" 
+        <div class="card-grid" :class="gridClass">
+          <div
+            v-for="card in cards"
+            :key="card.id"
             class="card"
             :class="{ 'flipped': card.isFlipped || card.isMatched, 'matched': card.isMatched }"
             @click="flipCard(card)"
@@ -45,18 +45,31 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, watch, ref } from 'vue'
+import { onMounted, onUnmounted, watch, computed } from 'vue'
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonIcon, alertController } from '@ionic/vue'
 import { trophyOutline, timeOutline } from 'ionicons/icons'
 import { useGameService } from '@/composables/gameService'
 import { useHistoryService } from '@/composables/historyService'
+import { useSettingsService } from '@/composables/settingsService'
 
-const { cards, matchedPairs, elapsedTime, totalPairs, isGameWon, initializeGame, flipCard, resetGame } = useGameService()
+const { cards, matchedPairs, elapsedTime, totalPairs, isGameWon, initializeGame, flipCard, resetGame, cleanup } = useGameService()
 const { addEntry } = useHistoryService()
-const playerName = ref('')
+const { cardCount, playerName, showTimer } = useSettingsService()
+
+const gridClass = computed(() => {
+  switch (cardCount.value) {
+    case 24: return 'grid-4x6'
+    case 36: return 'grid-6x6'
+    default: return 'grid-4x4'
+  }
+})
 
 onMounted(() => {
-  initializeGame(16) // 4x4 grid
+  initializeGame(cardCount.value)
+})
+
+onUnmounted(() => {
+  cleanup()
 })
 
 watch(isGameWon, async (won) => {
@@ -77,8 +90,7 @@ watch(isGameWon, async (won) => {
           text: 'Neues Spiel',
           handler: async (data) => {
             if (data.name) {
-              playerName.value = data.name
-              await addEntry(data.name, elapsedTime.value)
+              await addEntry(data.name, elapsedTime.value, cardCount.value)
             }
             resetGame()
           }
@@ -118,10 +130,22 @@ watch(isGameWon, async (won) => {
 
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
   gap: 10px;
   max-width: 600px;
   margin: 0 auto;
+}
+
+.card-grid.grid-4x4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.card-grid.grid-4x6 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.card-grid.grid-6x6 {
+  grid-template-columns: repeat(6, 1fr);
+  max-width: 700px;
 }
 
 .card {
