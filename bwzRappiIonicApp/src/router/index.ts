@@ -36,6 +36,10 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/game',
     component: () => import('@/views/GamePage.vue')
+  },
+  {
+    path: '/multiplayer',
+    component: () => import('@/views/MultiplayerGamePage.vue')
   }
 ]
 

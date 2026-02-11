@@ -20,7 +20,7 @@
           1P - Einzelspieler
         </ion-button>
 
-        <ion-button expand="full" size="large" class="mode-button" disabled>
+        <ion-button expand="full" size="large" class="mode-button" router-link="/multiplayer">
           2P - Mehrspieler
         </ion-button>
       </div>
