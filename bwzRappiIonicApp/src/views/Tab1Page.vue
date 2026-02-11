@@ -2,18 +2,18 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
-        <ion-title>Fischli's Memory</ion-title>
+        <ion-title>JFPW Memory</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
       <ion-header collapse="condense">
         <ion-toolbar>
-          <ion-title size="large">Fischli's Memory</ion-title>
+          <ion-title size="large">JFPW Memory</ion-title>
         </ion-toolbar>
       </ion-header>
 
       <div class="container">
-        <h1 class="beauty-title">Willkommen bei Fischli's Memory von Jeffrey Goldfischli</h1>
+        <h1 class="beauty-title">Willkommen bei JFPW Memory</h1>
         <p class="subtitle">Wähle deinen Spielmodus</p>
 
         <ion-button expand="full" size="large" class="mode-button" router-link="/game">
