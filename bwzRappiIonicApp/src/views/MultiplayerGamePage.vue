@@ -132,10 +132,9 @@ watch(isGameWon, async (won) => {
     
     const alert = await alertController.create({
       header: 'Spiel beendet!',
-      message: `
-        <strong>🏆 ${winner.value.name} gewinnt!</strong><br><br>
-        <strong>${winner.value.name}:</strong> ${winner.value.pairsFound} Paare in ${winner.value.totalTime}s<br>
-        <strong>${loser.name}:</strong> ${loser.pairsFound} Paare in ${loser.totalTime}s
+      message: `${winner.value.name} gewinnt
+      ${winner.value.name}: ${winner.value.pairsFound} Paare in ${winner.value.totalTime}s
+      ${loser.name}: ${loser.pairsFound} Paare in ${loser.totalTime}s
       `,
       buttons: [
         {
