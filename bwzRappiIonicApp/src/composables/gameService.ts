@@ -69,7 +69,7 @@ export function useGameService() {
     isProcessing.value = false
   }
 
-  const flipCard = async (card: Card) => {
+  const flipCard = (card: Card) => {
     // Don't flip if already processing, already flipped, or already matched
     if (isProcessing.value || card.isFlipped || card.isMatched) return
     if (flippedCards.value.length >= 2) return
@@ -89,11 +89,11 @@ export function useGameService() {
     // Check for match when 2 cards are flipped
     if (flippedCards.value.length === 2) {
       isProcessing.value = true
-      await checkForMatch()
+      checkForMatch()
     }
   }
 
-  const checkForMatch = async () => {
+  const checkForMatch = () => {
     const [card1, card2] = flippedCards.value
 
     if (card1.value === card2.value) {
@@ -111,11 +111,12 @@ export function useGameService() {
       }
     } else {
       // No match - wait and flip back
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      card1.isFlipped = false
-      card2.isFlipped = false
-      flippedCards.value = []
-      isProcessing.value = false
+      setTimeout(() => {
+        card1.isFlipped = false
+        card2.isFlipped = false
+        flippedCards.value = []
+        isProcessing.value = false
+      }, 1000)
     }
   }
 
