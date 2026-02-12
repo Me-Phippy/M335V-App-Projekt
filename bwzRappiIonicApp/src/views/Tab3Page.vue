@@ -41,7 +41,7 @@
 
           <h3>Einstellungen</h3>
           <p>
-            Im Settings-Tab kannst du die Spielfeldgröße (16, 24 oder 36 Karten), deinen Spielernamen 
+            Im Settings-Tab kannst du die Spielfeldgrösse (16, 24 oder 36 Karten), deinen Spielernamen 
             und die Anzeige der Spielzeit anpassen.
           </p>
         </div>
