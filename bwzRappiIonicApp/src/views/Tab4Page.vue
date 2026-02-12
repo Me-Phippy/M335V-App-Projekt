@@ -127,52 +127,60 @@ const handleClearHistory = async () => {
 .settings-container {
   display: flex;
   flex-direction: column;
-  padding: 20px;
-  gap: 30px;
+  padding: 40px;
+  gap: 40px;
+  min-height: 100%;
+  justify-content: center;
 }
 
 .settings-title {
-  font-size: 2rem;
+  font-size: 2.5rem;
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+  font-weight: bold;
 }
 
 .setting-section {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
 }
 
 .setting-label {
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   margin: 0;
+  font-weight: 600;
 }
 
 .button-group {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 15px;
 }
 
 .setting-button {
-  --padding-top: 20px;
-  --padding-bottom: 20px;
-  --padding-start: 25px;
-  --padding-end: 25px;
-  font-size: 1.1rem;
-  min-height: 60px;
+  --padding-top: 30px;
+  --padding-bottom: 30px;
+  --padding-start: 35px;
+  --padding-end: 35px;
+  font-size: 1.3rem;
+  min-height: 90px;
+  flex: 1;
+  min-width: 140px;
 }
 
 .name-input {
-  font-size: 1.2rem;
-  --padding-top: 15px;
-  --padding-bottom: 15px;
+  font-size: 1.4rem;
+  --padding-top: 20px;
+  --padding-bottom: 20px;
+  min-height: 70px;
 }
 
 .reset-button {
-  --padding-top: 25px;
-  --padding-bottom: 25px;
-  font-size: 1.2rem;
+  --padding-top: 30px;
+  --padding-bottom: 30px;
+  font-size: 1.4rem;
   margin-top: 20px;
+  min-height: 90px;
 }
 </style>
