@@ -114,7 +114,7 @@ export function useMultiplayerGameService() {
     playerStartTime.value = null
   }
 
-  const flipCard = (card: Card) => {
+  const flipCard = async (card: Card) => {
     if (isProcessing.value || card.isFlipped || card.isMatched) return
     if (flippedCards.value.length >= 2) return
 
@@ -131,11 +131,11 @@ export function useMultiplayerGameService() {
 
     if (flippedCards.value.length === 2) {
       isProcessing.value = true
-      checkForMatch()
+      await checkForMatch()
     }
   }
 
-  const checkForMatch = () => {
+  const checkForMatch = async () => {
     const [card1, card2] = flippedCards.value
 
     if (card1.value === card2.value) {
@@ -158,15 +158,14 @@ export function useMultiplayerGameService() {
       }
     } else {
       // No match - wait and flip back
-      setTimeout(() => {
-        card1.isFlipped = false
-        card2.isFlipped = false
-        flippedCards.value = []
-        isProcessing.value = false
-        
-        // Kein Match: Spielerwechsel (2.2)
-        switchPlayer()
-      }, 1000)
+      await new Promise(resolve => setTimeout(resolve, 1000))
+      card1.isFlipped = false
+      card2.isFlipped = false
+      flippedCards.value = []
+      isProcessing.value = false
+      
+      // Kein Match: Spielerwechsel (2.2)
+      switchPlayer()
     }
   }
 
